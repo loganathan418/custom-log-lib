@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 
 import com.custom.log.constants.ApplicationConstants;
 
-
 @Component
 public class CustomFilter implements Filter {
 	@Resource
@@ -40,10 +39,12 @@ public class CustomFilter implements Filter {
 		try {
 			MDC.put(ApplicationConstants.HOST, InetAddress.getLocalHost().getHostName());
 			MDC.put(ApplicationConstants.PORT, String.valueOf(request.getServerPort()));
-			MDC.put(ApplicationConstants.TXN_IDENTIFIER, request.getHeader(ApplicationConstants.REQUEST_ID));
-			MDC.put(ApplicationConstants.CHANNEL, request.getHeader(ApplicationConstants.CLIENT_ID));
+			MDC.put(ApplicationConstants.CHANNEL_TXN_IDENTIFIER, request.getHeader(ApplicationConstants.REQUEST_ID));
+			MDC.put(ApplicationConstants.PLATFORM_TXN_IDENTIFIER, request.getHeader(ApplicationConstants.PLATFORM_TXN_IDENTIFIER));
+			MDC.put(ApplicationConstants.CLIENT_ID, request.getHeader(ApplicationConstants.CLIENT_ID));
+			MDC.put(ApplicationConstants.CHANNEL_NAME, request.getHeader(ApplicationConstants.CHANNEL_NAME));
+			MDC.put(ApplicationConstants.SUB_CHANNEL_NAME, request.getHeader(ApplicationConstants.SUB_CHANNEL_NAME));
 			MDC.put(ApplicationConstants.COMPONENT_NAME, env.getProperty(ApplicationConstants.COMPONENT_NAME));
-			MDC.put(ApplicationConstants.REMOTE_ADDR, request.getHeader(ApplicationConstants.REMOTE_ADDR));
 			setProfileCategory();
 			chain.doFilter(request, response);
 		} finally {
@@ -54,7 +55,6 @@ public class CustomFilter implements Filter {
 	private String setProfileCategory() {
 		String[] profiles = env.getActiveProfiles();
 		if (profiles.length == 0) {
-
 			profiles = env.getDefaultProfiles();
 		}
 		MDC.put(ApplicationConstants.ENV, profiles[0]);

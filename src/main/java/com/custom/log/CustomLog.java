@@ -9,4 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CustomLog {
 	public String serviceName() default "";
+	public boolean logRequest() default false;
 }
