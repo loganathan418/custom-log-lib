@@ -23,5 +23,9 @@ public class ApplicationConstants {
 	public static final String CHANNEL_NAME = "channel-name";
 	public static final String PLATFORM_TXN_IDENTIFIER = "ptfrm-txnId";
 	public static final String CLIENT_ID = "client_id";
-	public static final String SUB_CHANNEL_NAME = "sub-channel-name";	
+	public static final String SUB_CHANNEL_NAME = "sub-channel-name";
+	
+	public static final String RESPONSE_TYPE = "responseType";
+	public static final String BASIC = "BASIC";
+	public static final String FIELD = "field";
 }
